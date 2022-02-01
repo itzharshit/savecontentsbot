@@ -24,7 +24,7 @@ async def clone(event):
         return
     s, r = await force_sub(event.client, fs, event.sender_id)
     if s == True:
-        await event.reply(r)
+        await event.reply('**Subscribe @pyrogrammers in order to use this bot.**')
         return
     edit = await event.reply('⏳')
     if 't.me/+' in link:
@@ -64,7 +64,7 @@ async def clone(event):
                      else:
                          if 'mp4' or 'x-matroska' in file.file.mime_type:
                              name = f'{chat}' + '-' + f'{msg_id}' + '.mp4'
-                 await fast_download(name, file.document, userbot, edit, time.time(), 'Downloading')
+                 await fast_download(name, file.document, userbot, edit, time.time(), 'Downloading:')
                  await edit.edit("⏳")
                  if 'mp4' in file.file.mime_type:
                      metadata = video_metadata(name)
@@ -76,7 +76,7 @@ async def clone(event):
                      caption = name
                      if file.text:
                          caption=file.text
-                     uploader = await fast_upload(name, name, time.time(), event.client, edit, 'Uploading')
+                     uploader = await fast_upload(name, name, time.time(), event.client, edit, 'Uploading:')
                      await event.client.send_file(event.chat_id, uploader, caption=caption, thumb=thumb, attributes=attributes, force_document=False)
                      await edit.delete()
                      os.remove(name)
@@ -90,7 +90,7 @@ async def clone(event):
                      caption = name
                      if file.text:
                          caption=file.text
-                     uploader = await fast_upload(name, name, time.time(), event.client, edit, 'Uploading')
+                     uploader = await fast_upload(name, name, time.time(), event.client, edit, 'Uploading:')
                      await event.client.send_file(event.chat_id, uploader, caption=caption, thumb=thumb, attributes=attributes, force_document=False)
                      await edit.delete()
                      os.remove(name)
@@ -101,7 +101,7 @@ async def clone(event):
                      thumb=None
                      if os.path.exists(f'{event.sender_id}.jpg'):
                          thumb = f'{event.sender_id}.jpg'
-                     uploader = await fast_upload(name, name, time.time(), event.client, edit, 'Uploading')
+                     uploader = await fast_upload(name, name, time.time(), event.client, edit, 'Uploading:')
                      await event.client.send_file(event.chat_id, uploader, caption=caption, thumb=thumb, force_document=True)
                      await edit.delete()
                      os.remove(name)
