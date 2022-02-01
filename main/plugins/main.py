@@ -26,7 +26,7 @@ async def clone(event):
     if s == True:
         await event.reply(r)
         return
-    edit = await event.reply('Trying to process.')
+    edit = await event.reply('⏳')
     if 't.me/+' in link:
         x, y = await join(userbot, link)
         await edit.edit(y)
@@ -42,7 +42,7 @@ async def clone(event):
                  msg_id = int(link.split("/")[-1])
                  file = await userbot.get_messages(chat, ids=msg_id)
                  if not file:
-                     await edit.edit("Couldn't get message!")
+                     await edit.edit("Something went wrong!")
                      return
                  if file and file.text:
                      try:
@@ -59,13 +59,13 @@ async def clone(event):
                  name = file.file.name
                  if not name:
                      if not file.file.mime_type:
-                         await edit.edit("Couldn't fetch Name/Mime for the file.")
+                         await edit.edit("File name not found.")
                          return
                      else:
                          if 'mp4' or 'x-matroska' in file.file.mime_type:
                              name = f'{chat}' + '-' + f'{msg_id}' + '.mp4'
-                 await fast_download(name, file.document, userbot, edit, time.time(), '**DOWNLOADING:**')
-                 await edit.edit("Preparing to upload.")
+                 await fast_download(name, file.document, userbot, edit, time.time(), 'Downloading')
+                 await edit.edit("⏳")
                  if 'mp4' in file.file.mime_type:
                      metadata = video_metadata(name)
                      height = metadata["height"]
@@ -76,7 +76,7 @@ async def clone(event):
                      caption = name
                      if file.text:
                          caption=file.text
-                     uploader = await fast_upload(name, name, time.time(), event.client, edit, '**UPLOADING:**')
+                     uploader = await fast_upload(name, name, time.time(), event.client, edit, 'Uploading')
                      await event.client.send_file(event.chat_id, uploader, caption=caption, thumb=thumb, attributes=attributes, force_document=False)
                      await edit.delete()
                      os.remove(name)
@@ -90,7 +90,7 @@ async def clone(event):
                      caption = name
                      if file.text:
                          caption=file.text
-                     uploader = await fast_upload(name, name, time.time(), event.client, edit, '**UPLOADING:**')
+                     uploader = await fast_upload(name, name, time.time(), event.client, edit, 'Uploading')
                      await event.client.send_file(event.chat_id, uploader, caption=caption, thumb=thumb, attributes=attributes, force_document=False)
                      await edit.delete()
                      os.remove(name)
@@ -101,16 +101,16 @@ async def clone(event):
                      thumb=None
                      if os.path.exists(f'{event.sender_id}.jpg'):
                          thumb = f'{event.sender_id}.jpg'
-                     uploader = await fast_upload(name, name, time.time(), event.client, edit, '**UPLOADING:**')
+                     uploader = await fast_upload(name, name, time.time(), event.client, edit, 'Uploading')
                      await event.client.send_file(event.chat_id, uploader, caption=caption, thumb=thumb, force_document=True)
                      await edit.delete()
                      os.remove(name)
              except Exception as e:
                  print(e)
                  if 'Peer'in str(e):
-                     await edit.edit("Channel not found, have you joined it?")
+                     await edit.edit("⚠️**Hell**, it is private Channel and i am unable to access it, First send me **invite link** of this Channel after that send this post link again.")
                      return
-                 await edit.edit("Failed, try again!")
+                 await edit.edit("Something went wrong, Please report in support group.")
                      
                                 
                                 
